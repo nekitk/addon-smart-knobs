@@ -4,7 +4,12 @@ module.exports = async ({ config }) => {
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
     use: [
-      'react-docgen-typescript-loader',
+      {
+        loader: 'react-docgen-typescript-loader',
+        options: {
+          shouldExtractLiteralValuesFromEnum: true,
+        },
+      },
       {
         loader: 'ts-loader',
         options: {
