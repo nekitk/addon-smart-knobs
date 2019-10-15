@@ -3,7 +3,21 @@ import { action } from '@storybook/addon-actions'
 import { logger } from '@storybook/client-logger'
 import { text, boolean, number, object, select } from '@storybook/addon-knobs'
 
-const cleanupString = str => str.replace(/^['"](.*)['"]$/, '$1')
+const QUOTED_STRING_REGEXP = /^['"](.*)['"]$/
+
+const cleanupValue = (value) => {
+  switch (typeof value) {
+    case 'string': {
+      return value.replace(QUOTED_STRING_REGEXP, '$1')
+    }
+    case 'boolean': {
+      return value
+    }
+    default: {
+      return String(value)
+    }
+  }
+}
 
 const knobResolvers = {}
 export const addKnobResolver = ({ name, resolver, weight = 0 }) => (knobResolvers[name] = { name, resolver, weight })
@@ -51,7 +65,7 @@ const createSelect = (propName, elements, defaultValue) => {
   try {
     const options = elements
     // Cleanup string quotes, if any.
-      .map(value => cleanupString(value.value))
+      .map(value => cleanupValue(value.value))
       .reduce(optionsReducer, {})
 
     return select(propName, withDefaultOption(options), defaultValue)
@@ -138,7 +152,7 @@ const resolvePropValues = (propTypes, defaultProps) => {
     .map(propName => resolvers.reduce(
       (value, resolver) => {
         const propType = propTypes[propName] || {}
-        const defaultValue = defaultProps[propName] || (propType.defaultValue && cleanupString(propType.defaultValue.value || '')) || undefined
+        const defaultValue = defaultProps[propName] || (propType.defaultValue && cleanupValue(propType.defaultValue.value || '')) || undefined
 
         return value !== undefined ? value
           : resolver(propName, propType, defaultValue)
