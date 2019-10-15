@@ -2,6 +2,8 @@
 * [fix: no knobs after select](https://github.com/storybookjs/addon-smart-knobs/pull/60)
 * [feat: support for react-docgen-typescript-loader](https://github.com/storybookjs/addon-smart-knobs/pull/61)
 * [fix: support for nested structure](https://github.com/storybookjs/addon-smart-knobs/pull/62)
+* [fix: fixed nested structure with text](https://github.com/storybookjs/addon-smart-knobs/pull/64)
+* [feat/ignore-props](https://github.com/storybookjs/addon-smart-knobs/pull/65)
 
 # Smart knobs addon for Storybook
 
