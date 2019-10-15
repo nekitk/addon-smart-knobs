@@ -19,7 +19,7 @@ storiesOf('Basic', module)
   .add('typescript', () => <SmartKnobedComponentWithTypescript />)
   .add('nested example', () => (
     <div>
-      <span />
+      <h1>Title</h1>
       <SmartKnobedComponent />
     </div>
   ))
