@@ -5,19 +5,7 @@ import { text, boolean, number, object, select } from '@storybook/addon-knobs'
 
 const QUOTED_STRING_REGEXP = /^['"](.*)['"]$/
 
-const cleanupValue = (value) => {
-  switch (typeof value) {
-    case 'string': {
-      return value.replace(QUOTED_STRING_REGEXP, '$1')
-    }
-    case 'boolean': {
-      return value
-    }
-    default: {
-      return String(value)
-    }
-  }
-}
+const cleanupValue = (value) => typeof value === 'string' ? value.replace(QUOTED_STRING_REGEXP, '$1') : value
 
 const knobResolvers = {}
 export const addKnobResolver = ({ name, resolver, weight = 0 }) => (knobResolvers[name] = { name, resolver, weight })
